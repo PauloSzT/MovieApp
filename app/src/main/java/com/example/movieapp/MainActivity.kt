@@ -23,8 +23,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.movieapp.navigation.BottomNav
 import com.example.movieapp.navigation.NavItem
 import com.example.movieapp.navigation.NavItem.Companion.title
+import com.example.movieapp.navigation.NavigationGraph
 import com.example.movieapp.ui.theme.MovieAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -32,7 +34,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            var navHostController = rememberNavController()
+            val navHostController = rememberNavController()
             var title by remember { mutableStateOf("")}
             var displayTopBar by remember { mutableStateOf(true) }
             var displayBottomBar by remember { mutableStateOf(true) }

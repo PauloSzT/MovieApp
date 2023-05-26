@@ -19,4 +19,3 @@ sealed class NavItem(var title: String, var icon: Int, var route: String) {
         }
     }
 }
-

@@ -1,4 +1,4 @@
-package com.example.movieapp
+package com.example.movieapp.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -16,10 +16,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.movieapp.navigation.NavItem
 import com.example.movieapp.ui.favorites.FavoritesScreen
 import com.example.movieapp.ui.login.LoginScreen
 import com.example.movieapp.ui.search.SearchScreen
+import com.example.movieapp.ui.search.SearchViewModel
 
 @Composable
 fun NavigationGraph(
@@ -28,17 +28,17 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = NavItem.Login.route,
+        startDestination = NavItem.Search.route,
         modifier = modifier.fillMaxSize()
     ){
         composable (route = NavItem.Login.route) {
             LoginScreen()
         }
-        composable(route = NavItem.Login.route){
+        composable(route = NavItem.Favorites.route){
             FavoritesScreen()
         }
-        composable(route = NavItem.Login.route){
-            SearchScreen()
+        composable(route = NavItem.Search.route){
+            SearchScreen(viewModel = SearchViewModel())
         }
     }
 }
