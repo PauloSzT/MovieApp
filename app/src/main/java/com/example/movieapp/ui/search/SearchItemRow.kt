@@ -1,6 +1,6 @@
 package com.example.movieapp.ui.search
 
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,10 +16,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.movieapp.R
-import com.example.movieapp.network.models.SearchItem
+import com.example.movieapp.data.network.models.SearchItem
 
 @Composable
-fun SearchItemRow(searchResult: SearchItem) {
+fun SearchItemRow(
+    searchResult: SearchItem,
+    onFavoriteClicked: (SearchItem) -> Unit
+) {
 
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -55,7 +58,8 @@ fun SearchItemRow(searchResult: SearchItem) {
             Icon(
                 modifier = Modifier
                     .padding(top = 16.dp, end = 8.dp)
-                    .weight(0.5f),
+                    .weight(0.5f)
+                    .clickable { onFavoriteClicked(searchResult) },
                 painter = painterResource(
                     if (true) R.drawable.ic_start_fill else R.drawable.ic_start_empty
                 ),
@@ -63,5 +67,4 @@ fun SearchItemRow(searchResult: SearchItem) {
             )
         }
     }
-
 }

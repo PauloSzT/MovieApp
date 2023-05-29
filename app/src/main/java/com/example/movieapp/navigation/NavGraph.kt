@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -17,6 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.movieapp.ui.favorites.FavoritesScreen
+import com.example.movieapp.ui.favorites.FavoritesScreenViewModel
 import com.example.movieapp.ui.login.LoginScreen
 import com.example.movieapp.ui.search.SearchScreen
 import com.example.movieapp.ui.search.SearchViewModel
@@ -26,6 +28,7 @@ fun NavigationGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
+    val localContext = LocalContext.current
     NavHost(
         navController = navController,
         startDestination = NavItem.Search.route,
@@ -35,10 +38,10 @@ fun NavigationGraph(
             LoginScreen()
         }
         composable(route = NavItem.Favorites.route){
-            FavoritesScreen()
+            FavoritesScreen(viewModel = FavoritesScreenViewModel(localContext))
         }
         composable(route = NavItem.Search.route){
-            SearchScreen(viewModel = SearchViewModel())
+            SearchScreen(viewModel = SearchViewModel(localContext))
         }
     }
 }

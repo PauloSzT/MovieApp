@@ -1,7 +1,7 @@
-package com.example.movieapp.network
+package com.example.movieapp.data.network
 
-import com.example.movieapp.network.models.Item
-import com.example.movieapp.network.models.SearchItemCollection
+import com.example.movieapp.data.network.models.Item
+import com.example.movieapp.data.network.models.SearchItemCollection
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json

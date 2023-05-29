@@ -1,5 +1,7 @@
-package com.example.movieapp.network.models
+package com.example.movieapp.data.network.models
 
+import com.example.movieapp.data.database.models.FavoriteItem
+import com.example.movieapp.utils.ToDataBaseMapper
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -15,4 +17,8 @@ data class SearchItem(
     val type: String,
     @SerialName("Poster")
     val poster: String
-)
+): ToDataBaseMapper<FavoriteItem>{
+    override fun mapToDataBaseModel(): FavoriteItem {
+        return FavoriteItem(itemId = id, title = title,poster = poster)
+    }
+}
