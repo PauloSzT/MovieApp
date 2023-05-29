@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.movieapp.navigation.BottomNav
@@ -35,7 +36,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navHostController = rememberNavController()
-            var title by remember { mutableStateOf("")}
+            var title by remember { mutableStateOf("") }
             var displayTopBar by remember { mutableStateOf(true) }
             var displayBottomBar by remember { mutableStateOf(true) }
             DisposableEffect(key1 = Unit) {
@@ -61,6 +62,14 @@ class MainActivity : ComponentActivity() {
                                         Icon(Icons.Filled.ArrowBack, null)
                                     }
                                 },
+                                actions = {
+                                    IconButton(onClick = {}) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_out),
+                                            null
+                                        )
+                                    }
+                                },
                                 modifier = Modifier
                                     .background(color = Color.White)
                             )
@@ -72,7 +81,7 @@ class MainActivity : ComponentActivity() {
                             BottomNav(navController = navHostController)
                         }
                     }
-                ){innerPadding ->
+                ) { innerPadding ->
                     NavigationGraph(
                         modifier = Modifier
                             .fillMaxSize()
