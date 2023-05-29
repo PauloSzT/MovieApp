@@ -16,7 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.movieapp.R
-import com.example.movieapp.data.network.models.SearchItem
+import com.example.movieapp.ui.models.SearchItem
 
 @Composable
 fun SearchItemRow(
@@ -61,7 +61,7 @@ fun SearchItemRow(
                     .weight(0.5f)
                     .clickable { onFavoriteClicked(searchResult) },
                 painter = painterResource(
-                    if (true) R.drawable.ic_start_fill else R.drawable.ic_start_empty
+                    if (searchResult.isFavorite) R.drawable.ic_start_fill else R.drawable.ic_start_empty
                 ),
                 contentDescription = null
             )

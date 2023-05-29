@@ -1,6 +1,6 @@
 package com.example.movieapp.ui.search
 
-import com.example.movieapp.data.network.models.SearchItem
+import com.example.movieapp.ui.models.SearchItem
 import kotlinx.coroutines.flow.StateFlow
 
 data class SearchUiState(
