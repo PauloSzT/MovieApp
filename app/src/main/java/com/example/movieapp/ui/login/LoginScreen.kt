@@ -37,7 +37,6 @@ import com.example.movieapp.navigation.NavItem
 import com.example.movieapp.ui.theme.MovieAppTheme
 import com.example.movieapp.utils.Constants.LOG_IN
 import com.example.movieapp.utils.Constants.PASSWORD_TEXT
-import com.example.movieapp.utils.Constants.USER_OR_PASSWORD_INCORRECT_TEXT
 import com.example.movieapp.utils.Constants.USER_TEXT
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -111,7 +110,11 @@ fun LoginButton(
     Button(
         onClick = {
             if (!login()) {
-                Toast.makeText(localContext, USER_OR_PASSWORD_INCORRECT_TEXT, Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    localContext,
+                    localContext.getString(R.string.user_password_incorrect),
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             } else {
                 navigateToSearch()
@@ -144,7 +147,7 @@ fun PasswordField(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         singleLine = true,
         maxLines = 1,
-        colors = TextFieldDefaults.colors(MaterialTheme.colorScheme.onPrimary)
+        colors = TextFieldDefaults.colors(MaterialTheme.colorScheme.onBackground)
     )
 }
 
@@ -161,7 +164,7 @@ fun UserField(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
         singleLine = true,
         maxLines = 1,
-        colors = TextFieldDefaults.colors(MaterialTheme.colorScheme.onPrimary)
+        colors = TextFieldDefaults.colors(MaterialTheme.colorScheme.onBackground)
     )
 }
 

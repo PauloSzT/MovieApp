@@ -19,6 +19,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
@@ -35,6 +36,9 @@ import com.example.movieapp.R
 import com.example.movieapp.ui.details.DetailsBottomSheet
 import com.example.movieapp.ui.models.FilterType
 import com.example.movieapp.ui.theme.MovieAppTheme
+import com.example.movieapp.utils.Constants.EPISODES
+import com.example.movieapp.utils.Constants.MOVIES
+import com.example.movieapp.utils.Constants.SERIES
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
@@ -73,7 +77,7 @@ fun SearchScreenContent(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "Filters: ")
+            Text(text = stringResource(id = R.string.filters))
             Button(
                 onClick = {
                     searchUiState.onFilterClick(FilterType.Movies)
@@ -84,9 +88,10 @@ fun SearchScreenContent(
                     } else {
                         MaterialTheme.colorScheme.secondary
                     }
-                )
+                ),
+                elevation = ButtonDefaults.buttonElevation(1.dp)
             ) {
-                Text(text = "Movies")
+                Text(text = MOVIES)
             }
             Button(
                 onClick = {
@@ -98,9 +103,10 @@ fun SearchScreenContent(
                     } else {
                         MaterialTheme.colorScheme.secondary
                     }
-                )
+                ),
+                elevation = ButtonDefaults.buttonElevation(1.dp)
             ) {
-                Text(text = "Series")
+                Text(text = SERIES)
             }
             Button(
                 onClick = {
@@ -112,9 +118,10 @@ fun SearchScreenContent(
                     } else {
                         MaterialTheme.colorScheme.secondary
                     }
-                )
+                ),
+                elevation = ButtonDefaults.buttonElevation(1.dp)
             ) {
-                Text(text = "Episodes")
+                Text(text = EPISODES)
             }
         }
         Row {
@@ -134,7 +141,11 @@ fun SearchScreenContent(
                         painter = painterResource(id = R.drawable.ic_search),
                         contentDescription = null
                     )
-                }
+                },
+                colors = TextFieldDefaults.colors(
+                    focusedTextColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    focusedContainerColor = MaterialTheme.colorScheme.primaryContainer
+                )
             )
         }
         Box(

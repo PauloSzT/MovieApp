@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.movieapp.ui.models.DetailItem
+import com.example.movieapp.utils.Constants.UNDEFINED
+import com.example.movieapp.utils.Constants.UNKNOWN
 import com.example.movieapp.utils.UiModelIntegrationMapper
 
 @Entity(tableName = "favorite")
@@ -27,9 +29,9 @@ data class FavoriteItem(
 ): UiModelIntegrationMapper<DetailItem>{
     override fun mapToUiModel(): DetailItem {
         return DetailItem(
-            title = title ?: "Unknown",
-            year = year ?: "Undefined",
-            type = type ?: "Unknown",
+            title = title ?: UNKNOWN,
+            year = year ?: UNDEFINED,
+            type = type ?: UNKNOWN,
             poster = poster ?: "")
     }
 }

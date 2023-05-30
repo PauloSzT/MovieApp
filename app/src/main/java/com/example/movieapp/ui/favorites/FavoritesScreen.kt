@@ -24,12 +24,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.movieapp.R
 import com.example.movieapp.ui.details.DetailsBottomSheet
 import com.example.movieapp.ui.theme.MovieAppTheme
-import com.example.movieapp.utils.Constants.NO_FAVORITES_SAVED
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.math.abs
 
@@ -112,7 +113,7 @@ fun NoFavoritesSaved() {
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = NO_FAVORITES_SAVED)
+        Text(text = stringResource(id = R.string.no_favorites_saved))
     }
 }
 
