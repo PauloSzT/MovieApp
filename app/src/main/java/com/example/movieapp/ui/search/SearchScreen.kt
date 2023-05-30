@@ -25,6 +25,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.movieapp.R
+import com.example.movieapp.ui.theme.MovieAppTheme
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun SearchScreen(
@@ -49,21 +51,23 @@ fun SearchScreenContent(
         Row {
             TextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = searchValue ,
+                value = searchValue,
                 onValueChange = searchUiState.onSearchQueryChange,
-                trailingIcon = { Icon(
-                    painter = painterResource(id = R.drawable.ic_search),
-                    contentDescription = null
-                )}
+                trailingIcon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_search),
+                        contentDescription = null
+                    )
+                }
             )
         }
         if (isLoading) {
             LoadingScreen()
         } else {
             LazyColumn {
-                if(searchResultList.isEmpty()){
-                   item { NoResult() }
-                }else{
+                if (searchResultList.isEmpty()) {
+                    item { NoResult() }
+                } else {
                     searchResultList.forEach { searchResult ->
                         item {
                             SearchItemRow(searchResult, searchUiState.saveFavorite)
@@ -93,17 +97,30 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun NoResult(){
+fun NoResult() {
     Row(
-        modifier = Modifier.fillMaxWidth().height(48.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(48.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
-    ){
+    ) {
         Text(text = "No Results...")
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun SearchScreenPreview() {
+    val searchUiState = SearchUiState(
+        isLoading = MutableStateFlow(false),
+        searchResultList = MutableStateFlow(emptyList()),
+        searchValue = MutableStateFlow(""),
+        onSearchQueryChange = {} ,
+        saveFavorite = {},
+    )
+
+    MovieAppTheme {
+        SearchScreenContent(searchUiState = searchUiState)
+    }
 }

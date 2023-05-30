@@ -16,6 +16,9 @@ interface FavoriteDAO {
     @Query("SELECT itemId FROM favorite")
     fun getAllIds(): Flow<List<String>>
 
+    @Query("DELETE FROM favorite")
+    suspend fun deleteAllItems()
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertItem(item: FavoriteItem)
 

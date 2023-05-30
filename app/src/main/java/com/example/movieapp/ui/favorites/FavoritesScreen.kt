@@ -1,24 +1,31 @@
 package com.example.movieapp.ui.favorites
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.movieapp.ui.theme.MovieAppTheme
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.math.abs
 
 @Composable
@@ -55,6 +62,8 @@ fun FavoritesScreenContent(
                 model = favoriteList[pageNumber].poster ?: ""
             )
         }
+    }else{
+        NoFavoritesSaved()
     }
 }
 
@@ -81,8 +90,26 @@ fun FavoriteItemComponent(
     }
 }
 
+@Composable
+fun NoFavoritesSaved(){
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(48.dp),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ){
+        Text(text = "No Favorites Saved")
+    }
+}
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun FavoritesScreenPreview() {
+    val favoriteUiState = FavoriteUiState(
+        favoriteList = MutableStateFlow(emptyList())
+    )
+    MovieAppTheme {
+        FavoritesScreenContent(favoriteUiState = favoriteUiState)
+    }
 }
