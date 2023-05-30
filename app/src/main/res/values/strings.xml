@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MovieApp</string>
+    <string name="loading_failed">Failed to load</string>
+    <string name="placeholder_result">Placeholder result text</string>
+    <string name="retry">Retry</string>
+    <string name="loading">Loading</string>
+    <string name="no_search_results">No Search Results…</string>
+    <string name="last_connection">Last Connection: %s</string>
 </resources>
