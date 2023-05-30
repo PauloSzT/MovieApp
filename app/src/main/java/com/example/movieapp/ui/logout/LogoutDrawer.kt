@@ -85,7 +85,7 @@ fun LogoutDrawerSheet(
             },
             modifier = Modifier.width(200.dp),
             colors = NavigationDrawerItemDefaults.colors(
-                unselectedContainerColor = MaterialTheme.colorScheme.primary,
+                unselectedContainerColor = MaterialTheme.colorScheme.onBackground,
                 unselectedTextColor = MaterialTheme.colorScheme.onPrimary,
                 unselectedIconColor = MaterialTheme.colorScheme.onPrimary,
                 unselectedBadgeColor = MaterialTheme.colorScheme.onPrimary

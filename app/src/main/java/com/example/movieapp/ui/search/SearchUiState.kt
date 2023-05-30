@@ -1,6 +1,7 @@
 package com.example.movieapp.ui.search
 
 import com.example.movieapp.ui.models.DetailItem
+import com.example.movieapp.ui.models.FilterType
 import com.example.movieapp.ui.models.SearchItem
 import kotlinx.coroutines.flow.StateFlow
 
@@ -9,7 +10,9 @@ data class SearchUiState(
     val searchResultList: StateFlow<List<SearchItem>>,
     val searchValue: StateFlow<String>,
     val currentItemDetail: StateFlow<DetailItem?>,
+    val filterTypeList: StateFlow<List<FilterType>>,
     val onSearchQueryChange: (String) -> Unit,
     val saveFavorite: (SearchItem) -> Unit,
-    val updateDetails: (SearchItem) -> Unit
+    val updateDetails: (SearchItem) -> Unit,
+    val onFilterClick: (FilterType) -> Unit
 )
