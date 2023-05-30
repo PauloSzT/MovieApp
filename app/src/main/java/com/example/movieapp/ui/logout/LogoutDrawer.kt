@@ -30,7 +30,6 @@ import com.example.movieapp.navigation.NavItem
 import com.example.movieapp.ui.theme.MovieAppTheme
 import com.example.movieapp.utils.Constants.APP_NAME
 import com.example.movieapp.utils.Constants.LOGOUT
-import com.example.movieapp.utils.Constants.USER_IS_TEXT
 
 @Composable
 fun LogoutDrawerSheet(
@@ -61,7 +60,7 @@ fun LogoutDrawerSheet(
                 .width(250.dp)
         )
         Text(
-            text = "$USER_IS_TEXT $userName",
+            text = stringResource(id = R.string.user, userName),
             modifier = Modifier.padding(vertical = 16.dp)
         )
         Text(

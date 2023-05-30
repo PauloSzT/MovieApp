@@ -65,5 +65,4 @@ class LoginScreenViewModel(context: Context) : ViewModel() {
         val date = Date(timestamp)
         return dateFormat.format(date)
     }
-
 }
