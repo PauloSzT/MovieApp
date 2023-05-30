@@ -1,5 +1,5 @@
 # Movie App
-Movie App to search Videos and Series.
+Movie App to search Movies and Series.
 
 ## Screenshots
 ![image](app/src/main/res/drawable/search_screen.jpg)
