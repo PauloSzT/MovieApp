@@ -35,6 +35,10 @@ import androidx.navigation.NavHostController
 import com.example.movieapp.R
 import com.example.movieapp.navigation.NavItem
 import com.example.movieapp.ui.theme.MovieAppTheme
+import com.example.movieapp.utils.Constants.LOG_IN
+import com.example.movieapp.utils.Constants.PASSWORD_TEXT
+import com.example.movieapp.utils.Constants.USER_OR_PASSWORD_INCORRECT_TEXT
+import com.example.movieapp.utils.Constants.USER_TEXT
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
@@ -67,8 +71,8 @@ fun LoginScreenContent(
     val passwordTextFieldValue by loginUiState.passwordTextFieldValue.collectAsState()
     val isUserLoggedIn by loginUiState.isUserLoggedIn.collectAsState()
 
-    LaunchedEffect(key1 = isUserLoggedIn){
-        if(isUserLoggedIn){
+    LaunchedEffect(key1 = isUserLoggedIn) {
+        if (isUserLoggedIn) {
             navigateToSearch()
         }
     }
@@ -107,7 +111,7 @@ fun LoginButton(
     Button(
         onClick = {
             if (!login()) {
-                Toast.makeText(localContext, "User or Password are incorrect", Toast.LENGTH_SHORT)
+                Toast.makeText(localContext, USER_OR_PASSWORD_INCORRECT_TEXT, Toast.LENGTH_SHORT)
                     .show()
             } else {
                 navigateToSearch()
@@ -123,7 +127,7 @@ fun LoginButton(
             disabledContentColor = Color.Transparent,
         )
     ) {
-        Text(text = "Iniciar Sesion")
+        Text(text = LOG_IN)
     }
 }
 
@@ -136,7 +140,7 @@ fun PasswordField(
         value = passwordTextFieldValue,
         onValueChange = onPasswordValueChange,
         modifier = Modifier.fillMaxWidth(),
-        placeholder = { Text(text = "Password") },
+        placeholder = { Text(text = PASSWORD_TEXT) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         singleLine = true,
         maxLines = 1,
@@ -153,7 +157,7 @@ fun UserField(
         value = userTextFieldValue,
         onValueChange = onUserValueChange,
         modifier = Modifier.fillMaxWidth(),
-        placeholder = { Text(text = "User") },
+        placeholder = { Text(text = USER_TEXT) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
         singleLine = true,
         maxLines = 1,

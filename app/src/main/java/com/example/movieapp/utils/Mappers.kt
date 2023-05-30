@@ -7,3 +7,7 @@ interface ToDataBaseMapper<T : Any> {
 interface ToUiMapper<T : Any> {
     fun mapToUiModel(ids: List<String>): T
 }
+
+interface UiModelIntegrationMapper<T : Any> {
+    fun mapToUiModel(): T
+}

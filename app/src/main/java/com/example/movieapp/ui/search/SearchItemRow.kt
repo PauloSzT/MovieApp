@@ -21,11 +21,12 @@ import com.example.movieapp.ui.models.SearchItem
 @Composable
 fun SearchItemRow(
     searchResult: SearchItem,
-    onFavoriteClicked: (SearchItem) -> Unit
+    onFavoriteClicked: (SearchItem) -> Unit,
+    updateDetails: (SearchItem) -> Unit
 ) {
 
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().clickable { updateDetails(searchResult) },
         elevation = CardDefaults.cardElevation(8.dp),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primaryContainer)
 

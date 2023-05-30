@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,6 +28,9 @@ import com.example.movieapp.MainActivityViewModel
 import com.example.movieapp.R
 import com.example.movieapp.navigation.NavItem
 import com.example.movieapp.ui.theme.MovieAppTheme
+import com.example.movieapp.utils.Constants.APP_NAME
+import com.example.movieapp.utils.Constants.LOGOUT
+import com.example.movieapp.utils.Constants.USER_IS_TEXT
 
 @Composable
 fun LogoutDrawerSheet(
@@ -44,7 +48,7 @@ fun LogoutDrawerSheet(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "MOVIE APP",
+            text = APP_NAME,
             fontSize = 16.sp,
             letterSpacing = 1.sp,
             modifier = Modifier.padding(vertical = 16.dp)
@@ -57,11 +61,11 @@ fun LogoutDrawerSheet(
                 .width(250.dp)
         )
         Text(
-            text = "User: $userName",
+            text = "$USER_IS_TEXT $userName",
             modifier = Modifier.padding(vertical = 16.dp)
         )
         Text(
-            text = "Last Connection: $loggedTime ",
+            text = stringResource(id = R.string.last_connection, loggedTime),
             modifier = Modifier.padding(vertical = 16.dp)
         )
         Spacer(modifier = Modifier.height(100.dp))
@@ -69,7 +73,7 @@ fun LogoutDrawerSheet(
             label = {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = "Logout",
+                    text = LOGOUT,
                     textAlign = TextAlign.Center
                 )
             },

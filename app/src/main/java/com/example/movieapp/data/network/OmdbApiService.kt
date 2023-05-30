@@ -25,7 +25,7 @@ private val retrofit = Retrofit.Builder()
     .client(getClient())
     .build()
 
-fun getClient ():OkHttpClient {
+fun getClient(): OkHttpClient {
     val interceptor = HttpLoggingInterceptor()
     interceptor.level = HttpLoggingInterceptor.Level.BODY
     val clientConfig = OkHttpClient.Builder()
@@ -41,7 +41,7 @@ interface MovieApiService {
     ): Item?
 
     @GET("/?apiKey=$API_KEY&page=1")
-    suspend fun getItemsBySearch (
+    suspend fun getItemsBySearch(
         @Query("s") searchQuery: String,
         @Query("type") itemType: String
     ): SearchItemCollection?

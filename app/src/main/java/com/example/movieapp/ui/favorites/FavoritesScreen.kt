@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -13,7 +14,9 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -24,7 +27,9 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.movieapp.ui.details.DetailsBottomSheet
 import com.example.movieapp.ui.theme.MovieAppTheme
+import com.example.movieapp.utils.Constants.NO_FAVORITES_SAVED
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.math.abs
 
@@ -32,11 +37,10 @@ import kotlin.math.abs
 fun FavoritesScreen(
     viewModel: FavoritesScreenViewModel
 ) {
-
     FavoritesScreenContent(viewModel.favoriteUiState)
 }
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun FavoritesScreenContent(
     favoriteUiState: FavoriteUiState
@@ -44,25 +48,34 @@ fun FavoritesScreenContent(
     val favoriteList by favoriteUiState.favoriteList.collectAsState()
     val favoriteListState = rememberPagerState { favoriteList.size }
     val windowWidth = LocalConfiguration.current.screenWidthDp.dp
+    val currentFavoriteItem by favoriteUiState.currentFavoriteDetail.collectAsState()
+    val scaffoldState = rememberBottomSheetScaffoldState()
 
     if (favoriteList.isNotEmpty()) {
-        HorizontalPager(
-            modifier = Modifier.fillMaxHeight(),
-            state = favoriteListState,
-            pageSize = PageSize.Fixed(230.dp),
-            contentPadding = PaddingValues(horizontal = (windowWidth - 180.dp).div(2))
-        ) { pageNumber ->
-            FavoriteItemComponent(
-                modifier = Modifier.graphicsLayer {
-                    val currentOffset =
-                        abs(favoriteListState.calculateCurrentOffsetForPage(pageNumber))
-                    scaleX = 1.5f - 0.5.times(currentOffset).toFloat()
-                    scaleY = 1.5f - 0.5.times(currentOffset).toFloat()
-                },
-                model = favoriteList[pageNumber].poster ?: ""
-            )
+        Box(modifier = Modifier.fillMaxSize()) {
+            HorizontalPager(
+                modifier = Modifier.fillMaxSize(),
+                state = favoriteListState,
+                pageSize = PageSize.Fixed(230.dp),
+                contentPadding = PaddingValues(horizontal = (windowWidth - 180.dp).div(2))
+            ) { pageNumber ->
+                FavoriteItemComponent(
+                    modifier = Modifier.graphicsLayer {
+                        val currentOffset =
+                            abs(favoriteListState.calculateCurrentOffsetForPage(pageNumber))
+                        if (currentOffset == 0.0f && favoriteList.isNotEmpty()) {
+                            favoriteUiState.updateDetails(favoriteList[pageNumber])
+                        }
+                        scaleX = 1.5f - 0.5.times(currentOffset).toFloat()
+                        scaleY = 1.5f - 0.5.times(currentOffset).toFloat()
+                    },
+                    model = favoriteList[pageNumber].poster ?: ""
+                )
+            }
+            DetailsBottomSheet(currentFavoriteItem, scaffoldState)
         }
-    }else{
+
+    } else {
         NoFavoritesSaved()
     }
 }
@@ -91,15 +104,15 @@ fun FavoriteItemComponent(
 }
 
 @Composable
-fun NoFavoritesSaved(){
+fun NoFavoritesSaved() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(48.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
-    ){
-        Text(text = "No Favorites Saved")
+    ) {
+        Text(text = NO_FAVORITES_SAVED)
     }
 }
 
@@ -107,7 +120,9 @@ fun NoFavoritesSaved(){
 @Composable
 fun FavoritesScreenPreview() {
     val favoriteUiState = FavoriteUiState(
-        favoriteList = MutableStateFlow(emptyList())
+        favoriteList = MutableStateFlow(emptyList()),
+        currentFavoriteDetail = MutableStateFlow(null),
+        updateDetails = {}
     )
     MovieAppTheme {
         FavoritesScreenContent(favoriteUiState = favoriteUiState)

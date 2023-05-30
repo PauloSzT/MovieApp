@@ -1,6 +1,5 @@
 package com.example.movieapp.navigation
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Icon
@@ -37,7 +36,10 @@ fun NavigationGraph(
         modifier = modifier.fillMaxSize()
     ) {
         composable(route = NavItem.Login.route) {
-            LoginScreen(viewModel = LoginScreenViewModel(localContext),navController = navController)
+            LoginScreen(
+                viewModel = LoginScreenViewModel(localContext),
+                navController = navController
+            )
         }
         composable(route = NavItem.Favorites.route) {
             FavoritesScreen(viewModel = FavoritesScreenViewModel(localContext))
